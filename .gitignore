@@ -1,0 +1,18 @@
+# Node
+node_modules/
+package-lock.json
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+.env
+
+# IDE
+.vscode/
+.git/
+
+# OS
+.DS_Store
+Thumbs.db

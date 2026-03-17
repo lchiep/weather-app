@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Dự báo thời tiết - Liquid Glass</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header với chọn thành phố -->
+        <div class="location-header glass-card">
+            <div class="location-selector">
+                <label for="city">Thành phố:</label>
+                <select id="city" class="city-select">
+                    <option value="Ho Chi Minh City">Hồ Chí Minh</option>
+                    <option value="Hanoi">Hà Nội</option>
+                    <option value="Da Nang">Đà Nẵng</option>
+                    <option value="Hai Phong">Hải Phòng</option>
+                    <option value="Bac Ninh">Bắc Ninh</option>
+                </select>
+                <button class="refresh-btn" id="refreshWeather">⟳</button>
+            </div>
+        </div>
+
+        <!-- Khu vực thời tiết hiện tại (icon lớn hơn) -->
+        <section class="glass-card weather-hero">
+            <div class="weather-icon">
+                <img src="" alt="Weather icon" class="weather-icon-img" id="current-icon">
+            </div>
+            <div class="weather-temp" id="current-temp">--°C</div>
+            <div class="weather-desc" id="current-desc">--</div>
+            <div class="weather-highlow" id="current-highlow">H:--° L:--°</div>
+        </section>
+
+        <!-- Các chỉ số chi tiết (dạng lưới 2 cột) -->
+        <div class="metrics-grid">
+            <div class="glass-card metric-item">
+                <span class="metric-label">Cảm giác như</span>
+                <span class="metric-value" id="feels-like">--°C</span>
+            </div>
+            <div class="glass-card metric-item">
+                <span class="metric-label">Độ ẩm</span>
+                <span class="metric-value" id="humidity">--%</span>
+            </div>
+            <div class="glass-card metric-item">
+                <span class="metric-label">Tốc độ gió</span>
+                <span class="metric-value" id="wind-speed">-- km/h</span>
+            </div>
+            <div class="glass-card metric-item">
+                <span class="metric-label">Tia UV</span>
+                <span class="metric-value" id="uvi">--</span>
+            </div>
+            <div class="glass-card metric-item">
+                <span class="metric-label">Tầm nhìn</span>
+                <span class="metric-value" id="visibility">-- km</span>
+            </div>
+            <div class="glass-card metric-item">
+                <span class="metric-label">Áp suất</span>
+                <span class="metric-value" id="pressure">-- hPa</span>
+            </div>
+        </div>
+
+        <!-- Dự báo theo giờ -->
+        <section class="glass-card hourly-section">
+            <h2 class="section-title">Dự báo theo giờ</h2>
+            <div class="hourly-scroll" id="hourly-container">
+                <!-- JS sẽ render -->
+            </div>
+        </section>
+
+        <!-- Dự báo 5 ngày -->
+        <section class="glass-card forecast-section">
+            <h2 class="section-title">Dự báo 5 ngày</h2>
+            <div class="forecast-list" id="forecast-container">
+                <!-- JS sẽ render -->
+            </div>
+        </section>
+
+        <!-- Icon chat -->
+        <div class="chat-icon" id="chatIcon">
+            <img src="assets/wind_3512781.png" alt="Chat" style="width: 60px; height: 60px; object-fit: contain; border-radius: 50%;">
+        </div>
+
+        <!-- Khung chat -->
+        <div class="chat-box hidden" id="chatBox">
+            <div class="chat-header">
+                <span>Trợ lý thời tiết</span>
+                <button class="close-chat" id="closeChat">&times;</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">Xin chào! Tôi có thể giúp gì cho bạn về thời tiết?</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Hỏi về thời tiết...">
+                <button class="chat-send" id="sendMessage">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

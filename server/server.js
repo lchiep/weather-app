@@ -24,3 +24,20 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server đang chạy tại http://localhost:${PORT}`);
 });
+
+const cors = require('cors');
+
+const allowedOrigins = [
+    'https://weather-app.vercel.app',          // URL frontend (sẽ có sau khi deploy)
+    'https://weather-chatbot.onrender.com'     // URL Python chatbot
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+}));

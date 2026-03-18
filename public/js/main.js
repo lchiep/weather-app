@@ -1,7 +1,7 @@
 // main.js
 
 // Các hằng số API URL (thay bằng URL thật sau khi deploy)
-const CHAT_API_URL = 'https://weather-chatbot.onrender.com/chat';          // Python backend
+const CHAT_API_URL = 'https://weather-chatbot.onrender.com/chat';            // Python backend
 const WEATHER_API_URL = 'https://weather-node-api.onrender.com/api/weather'; // Node backend
 
 // DOM elements

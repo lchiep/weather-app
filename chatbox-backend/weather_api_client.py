@@ -1,4 +1,15 @@
+import sys
 import requests
+
+# Ensure stdout/stderr can print Unicode on Windows consoles with legacy encodings.
+# This prevents UnicodeEncodeError when printing Vietnamese text.
+try:
+    if sys.stdout.encoding.lower() != 'utf-8':
+        sys.stdout.reconfigure(encoding='utf-8')
+    if sys.stderr.encoding.lower() != 'utf-8':
+        sys.stderr.reconfigure(encoding='utf-8')
+except Exception:
+    pass
 
 NODE_API_URL = "http://localhost:3000/api/weather"
 

@@ -1,7 +1,18 @@
+import sys
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from chat.intent_parser import parse_intent
 from chat.response_generator import generate_response
+
+# Ensure stdout/stderr can print Unicode on Windows consoles with legacy encodings.
+try:
+    if sys.stdout.encoding.lower() != 'utf-8':
+        sys.stdout.reconfigure(encoding='utf-8')
+    if sys.stderr.encoding.lower() != 'utf-8':
+        sys.stderr.reconfigure(encoding='utf-8')
+except Exception:
+    pass
 
 app = Flask(__name__)
 CORS(app)

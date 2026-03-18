@@ -4,6 +4,11 @@ const path = require('path');
 const cors = require('cors');
 const weatherRoutes = require('./routes/weather');
 
+// Verify that the OpenWeather API key is loaded (do not log the key itself).
+if (!process.env.OPENWEATHER_API_KEY) {
+  console.warn('⚠️ OPENWEATHER_API_KEY is not set. Weather data requests will fail.');
+}
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 

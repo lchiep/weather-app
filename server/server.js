@@ -7,36 +7,36 @@ const weatherRoutes = require('./routes/weather');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Danh sách các origin được phép truy cập
-const allowedOrigins = [
-    'https://weather-app.vercel.app',                                   // Frontend chính (nếu có)
-    'https://weather-api-test-main-iqilesi-projects.vercel.app',       // Origin frontend thật từ log
-    'https://weather-chatbot-52vr.onrender.com',                       // Python chatbot
-    'http://localhost:3000'                                             // Local dev
-];
-
-// Middleware CORS
+// Cấu hình CORS linh hoạt – chấp nhận mọi origin từ Vercel và Render
 app.use(cors({
     origin: function (origin, callback) {
-        // Nếu không có origin (ví dụ gọi từ server, Postman) thì cho phép
+        // Nếu không có origin (Postman, server-to-server) thì cho phép
         if (!origin) return callback(null, true);
-        
-        if (allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            const msg = `Origin ${origin} không được phép truy cập.`;
-            callback(new Error(msg), false);
-        }
+
+        // Cho phép localhost (dùng cho phát triển)
+        if (origin.includes('localhost')) return callback(null, true);
+
+        // Cho phép tất cả các subdomain của vercel.app
+        if (origin.endsWith('.vercel.app')) return callback(null, true);
+
+        // Cho phép tất cả các subdomain của onrender.com
+        if (origin.includes('.onrender.com')) return callback(null, true);
+
+        // Nếu không khớp, từ chối và báo lỗi
+        const msg = `Origin ${origin} không được phép truy cập.`;
+        return callback(new Error(msg), false);
     },
-    credentials: true,          // Cho phép gửi cookie/authentication
+    credentials: true,          // Cho phép gửi cookie/authentication nếu cần
     optionsSuccessStatus: 200    // Quan trọng cho preflight request
 }));
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
+
+// Route weather
 app.use('/api/weather', weatherRoutes);
 
-// Fallback cho SPA (trả về index.html nếu không match route nào)
+// Fallback SPA
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
 });

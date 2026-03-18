@@ -1,22 +1,21 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
-const cors = require('cors');          
+const cors = require('cors');
 const weatherRoutes = require('./routes/weather');
-    app.use('/api/weather', weatherRoutes);
-const app = express();
+
+const app = express(); // Khai báo app trước khi sử dụng
 const PORT = process.env.PORT || 3000;
 
 // Cấu hình CORS – cho phép frontend và Python chatbot
 const allowedOrigins = [
-    'https://weather-app.vercel.app',           
-    'https://weather-chatbot.onrender.com',     // URL Python chatbot
-    'http://localhost:3000'                      // Cho local test
+    'https://weather-app.vercel.app',
+    'https://weather-chatbot.onrender.com',
+    'http://localhost:3000'
 ];
 
 app.use(cors({
     origin: function (origin, callback) {
-        // Cho phép requests không có origin (ví dụ mobile apps)
         if (!origin) return callback(null, true);
         if (allowedOrigins.indexOf(origin) === -1) {
             const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
@@ -28,6 +27,8 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
+
+// Sử dụng route weather
 app.use('/api/weather', weatherRoutes);
 
 // Fallback cho SPA
